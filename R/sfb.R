@@ -31,7 +31,7 @@ plot_SFB <- function(data, country) {
 #' @return data and/or plots of sectoral balances
 #' @export
 sfb <- function(list_of_countries, t_start = 1950, t_end=9999, getData=F, getPlot=T){
-  #list_of_countries= "germany"
+
   # converts county names into standardized country codes
   country <- countrycode::countrycode(list_of_countries,
                                       "country.name", "wb")
@@ -73,9 +73,6 @@ sfb <- function(list_of_countries, t_start = 1950, t_end=9999, getData=F, getPlo
 
   # reshape data to long format and rename
   df_long <- data.table::melt(df_wide, id.vars=c("period", "Country"), variable.name = "Sector", value.name = "balance")
-  # colnames(df_long) <- c("Year", "Country", "Sector", "Financial Balance in % of GDP")
-  # names(df_long)[names(df_long) == 'variable'] <- 'sector'
-  # names(df_long)[names(df_long) == 'value'] <- 'balance'
 
   # plot sectoral balances using plot_sectoral_balances function
   plots <- lapply(list_of_countries, plot_SFB, data = df_long)
