@@ -32,6 +32,9 @@ plot_SFB <- function(data, country) {
 #' @export
 sfb <- function(list_of_countries, t_start = 1950, t_end=9999, getData=F, getPlot=T){
 
+  # change first letter to uppercase
+  list_of_countries <- stringr::str_to_title(list_of_countries)
+
   # converts county names into standardized country codes
   country <- countrycode::countrycode(list_of_countries,
                                       "country.name", "wb")

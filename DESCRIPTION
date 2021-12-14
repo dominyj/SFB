@@ -14,5 +14,6 @@ Imports:
 	countrycode,
 	rdbnomics,
 	ggplot2,
-	data.table
+	data.table,
+	stringr
 
