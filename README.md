@@ -1,4 +1,4 @@
-# SFB
+# SFB - an R package that plots sectoral financial balances using the AMECO dataset
 This is a small R packages that plots sectoral financial balances of countries in the AMECO data set. 
 
 # Installation
