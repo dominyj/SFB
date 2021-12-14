@@ -73,7 +73,7 @@ sfb <- function(list_of_countries, t_start = 1950, t_end=9999, getData=F, getPlo
 
 
   # return data if argument "getData" was set TRUE
-  if(getPlot == F & getData == T){
+  if(isFALSE(getPlot) & isTRUE(getData)){
     return(df_wide)
   }
 
@@ -87,7 +87,7 @@ sfb <- function(list_of_countries, t_start = 1950, t_end=9999, getData=F, getPlo
   plots <- lapply(list_of_countries, plot_SFB, data = df_long)
 
   # return plot and data
-  if(getData == F){
+  if(isFALSE(getData)){
     return(plots)
   } else {
     return(list(plots, df_wide))
