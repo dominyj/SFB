@@ -16,7 +16,8 @@ plot_SFB <- function(data, country) {
   ) +
     ggplot2::geom_line(mapping = ggplot2::aes(color=sector)) +
     ggplot2::ggtitle(country)+
-    ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
+    ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))+
+    ggplot2::labs(caption="Source: AMECO")
 }
 
 
