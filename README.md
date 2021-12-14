@@ -13,6 +13,7 @@ The SFB R-package only includes one function that output the financial sectoral 
 ```
 library(SFB)
 sfb("Germany")
+```
 
 
 
