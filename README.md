@@ -9,11 +9,20 @@ devtools::install_github("jbschulte/SFB")
 ```
 
 # How to use
-The SFB R-package only includes one function that output the financial sectoral balances as a plot and/or dataset. 
+Get a plot of financial sectoral balances of a country or list of countries:
 ```
 library(SFB)
 sfb("Germany")
+sfb("Germany", "Spain", "United States")
 ```
-
+Specify time period:
+```
+sfb("Germany", t_start = 1995, t_end=2015)
+```
+You can also output the data table with or without the plots:
+```
+sfb("Germany", getData = TRUE)
+sfb("Germany", getData = TRUE, getPlot = FALSE)
+```
 
 
