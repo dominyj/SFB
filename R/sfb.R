@@ -1,8 +1,7 @@
 
-# Some useful keyboard shortcuts for package authoring:#
-#   Install Package:           'Cmd + Shift + B'
-#   Check Package:             'Cmd + Shift + E'
-#   Test Package:              'Cmd + Shift + T'
+# This is a small R packages that plots sectoral financial balances of countries in the AMECO data set.
+#
+#
 
 
 
@@ -33,7 +32,7 @@ plot_SFB <- function(data, country) {
 #' @return data and/or plots of sectoral balances
 #' @export
 sfb <- function(list_of_countries, t_start = 1950, t_end=9999, getData=F, getPlot=T){
-
+  list_of_countries= "germany"
   # converts county names into standardized country codes
   country <- countrycode::countrycode(list_of_countries,
                                       "country.name", "wb")
@@ -47,19 +46,17 @@ sfb <- function(list_of_countries, t_start = 1950, t_end=9999, getData=F, getPlo
   idcodes <- paste0(idcodes, "/", country)
   idcodes <- paste0(idcodes, ".1.0.0.0.", rep(sectorcodes, each = length(country)))
 
-
   # load AMECO data for requested countries
   df <- rdbnomics::rdb(ids = idcodes);
 
   # reshape data to wide format and delete missing values
   df_wide <- data.table::dcast(df, period+Country+geo~dataset_code, value.var="value")
-  df_wide <- df_wide[rowSums(is.na(df_wide[,4:8])) == 0, ]
+  df_wide <- na.omit(df_wide)
 
   # shorten data to time frame
   t_start <- paste0(t_start, "-01-01")
   t_end <- paste0(t_end, "-01-01")
-  #df_wide <- df_wide[period == "1991-01-01"]
-  df_wide <- df_wide[df_wide$period >= t_start & df_wide$period <= t_end,]
+  df_wide <- df_wide[period >= t_start & period <= t_end,]
 
   # calculate sectoral balances to GDP
   df_wide$Foreign <- -df_wide$UBLA/df_wide$UVGD
@@ -70,8 +67,6 @@ sfb <- function(list_of_countries, t_start = 1950, t_end=9999, getData=F, getPlo
   # select columns
   df_wide <- df_wide[,c("period", "Country", "Households", "Corporations", "Government", "Foreign")]
 
-
-
   # return data if argument "getData" was set TRUE
   if(isFALSE(getPlot) & isTRUE(getData)){
     return(df_wide)
@@ -79,9 +74,7 @@ sfb <- function(list_of_countries, t_start = 1950, t_end=9999, getData=F, getPlo
 
   # reshape data to long format and rename
   df_long <- data.table::melt(df_wide, id.vars=c("period", "Country"))
-  names(df_long)[names(df_long) == 'variable'] <- 'sector'
-  names(df_long)[names(df_long) == 'value'] <- 'balance'
-
+  colnames(df_long) <- c("Year", "Country", "Sector", "Financial Balance in % of GDP")
 
   # plot sectoral balances using plot_sectoral_balances function
   plots <- lapply(list_of_countries, plot_SFB, data = df_long)
