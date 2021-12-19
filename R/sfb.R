@@ -93,7 +93,7 @@ clean_data <- function(data, t_start, t_end){
 # Function: calculate_sfb()
 # Calculate sectoral balances of GDP
 calculate_sfb <- function(data){
-  df_wides <- data
+  df_wide <- data
   df_wide$Foreign <- -df_wide$UBLA/df_wide$UVGD*100
   df_wide$Corporations<- df_wide$UBLC/df_wide$UVGD*100
   df_wide$Households <- df_wide$UBLH/df_wide$UVGD*100
