@@ -13,7 +13,7 @@ Get a plot of financial sectoral balances of a country or list of countries:
 ```
 library(SFB)
 sfb("Germany")
-sfb("Germany", "Spain", "United States")
+sfb(c("Germany", "Spain", "United States"))
 ```
 Specify time period:
 ```
