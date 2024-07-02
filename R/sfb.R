@@ -1,6 +1,5 @@
 # This is a small R packages that plots sectoral financial balances of countries in the AMECO data set.
 
-
 #' #' Sectoral Balances
 #' #'
 #' #' This function receives AMECO sectoral balances data and outputs data and plots
@@ -116,7 +115,9 @@ plot_SFB <- function(data, country) {
     mapping = ggplot2::aes(x=period, y=balance)
   ) +
     ggplot2::geom_line(mapping = ggplot2::aes(color=Sector)) +
+    ggplot2::geom_hline(yintercept = 0)+
     ggplot2::ggtitle(country)+
+    ggplot2::theme_minimal()+
     ggplot2::theme(axis.title=ggplot2::element_blank())
 }
 
